@@ -1,0 +1,73 @@
+
+
+models:
+  - name: job_postings
+    description: Cleaned postings;
+    config:
+      persist_docs:
+        relation: true
+        columns: true
+    columns:
+      - name: job_id
+        description: The scrapers posting id; rescraped postings repeat it;
+      - name: job_title
+        description: Posting title as scraped;
+      - name: company_name
+        description: Company name as scraped;
+      - name: job_location
+        description: The postinng location as scraped;
+      - name: job_via
+        description: The posting platform as scraped;
+      - name: job_schedule_type
+        description: The schedule as posted;
+      - name: job_work_from_home
+        description: True when flagged as work from home, false otherwise;
+      - name: seaarch_date
+        description: Scrape day;
+      - name: search_term
+        description: The search term used to find the posting;
+  
+  - name: jobs_per_month
+    description: Monthly counts of postings by role;
+    config:
+      persist_docs:
+        relation: true
+        columns: true
+    columns:
+      - name: month
+        description: Posting month truncated from search date;
+      - name: role
+        description: Search role (search term) used to find the posting;
+      - name: postings
+        description: Postings counted for the role that month;
+  
+  - name: top_locations
+    description: Top  locations by posting count;
+    config:
+      persist_docs:
+        relation: true
+        columns: true
+    columns:
+      - name: job_location
+        description: Posting location as scraped;
+      - name: postings
+        description: Postings counted for the location;
+
+  - name: monthly_summary
+    description: Monthly summary of job postings; one row per month.
+    config:
+      persist_docs:
+        relation: true
+        columns: true
+    columns:
+      - name: month
+        description: Year and month of the summary.
+      - name: total_postings
+        description: All postings that month (summed from jobs_per_month).
+      - name: remote_postings
+        description: Postings flagged remote that month.
+      - name: pct_remote
+        description: Share of the month's postings flagged remote, percent.
+
+
+        
