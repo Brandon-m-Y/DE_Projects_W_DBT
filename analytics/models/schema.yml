@@ -12,6 +12,8 @@ models:
         description: The scrapers posting id; rescraped postings repeat it;
       - name: job_title
         description: Posting title as scraped;
+        data_tests:
+          - not_null
       - name: company_name
         description: Company name as scraped;
       - name: job_location
@@ -22,7 +24,7 @@ models:
         description: The schedule as posted;
       - name: job_work_from_home
         description: True when flagged as work from home, false otherwise;
-      - name: seaarch_date
+      - name: search_date
         description: Scrape day;
       - name: search_term
         description: The search term used to find the posting;
