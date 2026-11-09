@@ -7,7 +7,9 @@ authors = [
     { name = "Brandon Ytuarte", email = "brandonmichealytuarte@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "dbt>=2.0.9",
+]
 
 [project.scripts]
 de-projects-w-dbt = "de_projects_w_dbt:main"
