@@ -1,6 +1,7 @@
 # Automated Job Postings Pipeline (v1) - dbt + DuckDB
 
 [![dbt build & publish](https://github.com/Brandon-m-Y/DE_Projects_W_DBT/actions/workflows/dbt_build.yml/badge.svg)](https://github.com/Brandon-m-Y/DE_Projects_W_DBT/actions/workflows/dbt_build.yml)
+[![dbt Docs](https://img.shields.io/badge/dbt_docs-live-blue)](https://brandon-m-y.github.io/DE_Projects_W_DBT/)
 
 ![dbt pipeline diagram](img/dbt_pipeline.png)
 
@@ -17,6 +18,7 @@ A public dbt + duckdb pipeline with over ~692k real job postings, rebuilt and re
 | **dbt pipeline** | raw source → cleaned view → 3 insight marts | [`analytics/models/`](analytics/models/) |
 | **Data tests** | `not_null` on `job_title`; a failing test fails the build | [`schema.yml`](analytics/models/schema.yml) |
 | **Documentation** | model + column descriptions, written into the warehouse with `persist_docs` | [`schema.yml`](analytics/models/schema.yml) |
+| **Hosted dbt docs** | lineage, descriptions, column tests | [Live docs site](https://brandon-m-y.github.io/DE_Projects_W_DBT/) |
 | **Public CI** | build + test + publish on every push | [Actions workflow](https://github.com/Brandon-m-Y/DE_Projects_W_DBT/actions/workflows/dbt_build.yml) |
 | **Environments** | local `dev` vs CI `prod` targets | [`ci/profiles.yml`](ci/profiles.yml) |
 | **Published warehouse** | one `ATTACH`, queryable by anyone | [Query it](#-query-the-published-warehouse) |
@@ -95,19 +97,23 @@ SELECT * FROM jobs_per_month;
 
 ## 📖 Docs
 
-Every model and column has a description in [`schema.yml`](analytics/models/schema.yml). To browse the lineage graph, descriptions, and tests locally:
+The dbt docs site is published to GitHub Pages from the [`docs/`](docs/) folder:
+
+**→ [brandon-m-y.github.io/DE_Projects_W_DBT](https://brandon-m-y.github.io/DE_Projects_W_DBT/)**
+
+The site shows:
+
+- The full **lineage graph** (source → view → marts)
+- **Model and column descriptions** from [`schema.yml`](analytics/models/schema.yml)
+- Which columns carry **tests**
+
+To browse the docs locally instead:
 
 ```bash
 cd analytics
 uv run dbt docs generate
 uv run dbt docs serve
 ```
-
-The site shows:
-
-- The full **lineage graph** (source → view → marts)
-- **Model and column descriptions** from the YAML
-- Which columns carry **tests**
 
 ---
 
@@ -142,6 +148,7 @@ To build the `prod` warehouse the same way CI does, run `uv run dbt build --prof
 ├── .github/workflows/dbt_build.yml   # public CI: build, test, publish
 ├── ci/profiles.yml                   # prod DuckDB target for Actions
 ├── data/                             # raw parquet + warehouses (gitignored; CI regenerates)
+├── docs/                             # dbt docs site (GitHub Pages)
 ├── img/                              # README diagrams
 ├── analytics/
 │   ├── dbt_project.yml
